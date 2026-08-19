@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piano Music Game — Play Every Tradition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="stage-glow"></div>
+
+<div class="container">
+
+  <!-- ===== MENU SCREEN ===== -->
+  <section id="menuScreen" class="screen active">
+    <header class="header">
+      <p class="eyebrow">A keyboard for every corner of the world</p>
+      <h1>Piano<span class="accent">Verse</span></h1>
+      <p class="subtitle">Five modes. Eight instruments. One set of keys.</p>
+    </header>
+
+    <div class="menu-content">
+      <div class="mode-grid">
+        <button class="mode-card" data-mode="classic" onclick="startGame('classic')">
+          <span class="mode-icon">◆</span>
+          <span class="mode-name">Classic</span>
+          <span class="mode-desc">Timeless etudes &amp; scales</span>
+        </button>
+        <button class="mode-card" data-mode="folk" onclick="startGame('folk')">
+          <span class="mode-icon">❦</span>
+          <span class="mode-name">Folk</span>
+          <span class="mode-desc">Songs passed down by ear</span>
+        </button>
+        <button class="mode-card" data-mode="international" onclick="startGame('international')">
+          <span class="mode-icon">◈</span>
+          <span class="mode-name">International</span>
+          <span class="mode-desc">Melodies from six countries</span>
+        </button>
+        <button class="mode-card" data-mode="freestyle" onclick="startGame('freestyle')">
+          <span class="mode-icon">✦</span>
+          <span class="mode-name">Freestyle</span>
+          <span class="mode-desc">No score. Just play</span>
+        </button>
+        <button class="mode-card" data-mode="challenge" onclick="startGame('challenge')">
+          <span class="mode-icon">⬥</span>
+          <span class="mode-name">Challenge</span>
+          <span class="mode-desc">Timed. Unforgiving. Fast</span>
+        </button>
+      </div>
+
+      <div class="settings-bar">
+        <label class="volume-control">
+          <span>Volume</span>
+          <input type="range" id="volumeControl" min="0" max="100" value="70">
+        </label>
+        <div class="best-score">
+          <span>Best score</span>
+          <p id="bestScoreDisplay">0</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GAME SCREEN ===== -->
+  <section id="gameScreen" class="screen">
+    <div class="game-header">
+      <div class="score-board">
+        <div class="stat">
+          <span>Score</span>
+          <p id="score">0</p>
+        </div>
+        <div class="stat">
+          <span>Combo</span>
+          <p id="combo">0</p>
+        </div>
+        <div class="stat">
+          <span>Accuracy</span>
+          <p id="accuracy">100%</p>
+        </div>
+        <div class="stat">
+          <span>Level</span>
+          <p id="level">1</p>
+        </div>
+      </div>
+      <div class="game-header-right">
+        <p class="now-playing" id="nowPlaying">—</p>
+        <button class="close-btn" onclick="backToMenu()">Exit</button>
+      </div>
+    </div>
+
+    <div class="piano-container">
+      <div class="note-display">
+        <div class="track-line"></div>
+        <div class="upcoming-notes" id="upcomingNotes"></div>
+      </div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="instrument-selector">
+        <label for="instrumentSelect">Instrument</label>
+        <select id="instrumentSelect" onchange="changeInstrument(this.value)">
+          <option value="piano">Piano</option>
+          <option value="violin">Violin</option>
+          <option value="flute">Flute</option>
+          <option value="trumpet">Trumpet</option>
+          <option value="guitar">Guitar</option>
+          <option value="xylophone">Xylophone</option>
+          <option value="harpsichord">Harpsichord</option>
+          <option value="bells">Bells</option>
+        </select>
+      </div>
+
+      <div class="piano" id="piano">
+        <div class="keyboard" id="keyboard"></div>
+      </div>
+      <p class="hint">Click the keys, or use your computer keyboard: <span class="kbd-row">A S D F G H J K L</span> for white keys, <span class="kbd-row">W E T Y U</span> for black keys.</p>
+    </div>
+  </section>
+
+  <!-- ===== RESULTS SCREEN ===== -->
+  <section id="resultsScreen" class="screen">
+    <div class="results-content">
+      <p class="eyebrow" id="resultsEyebrow">Song complete</p>
+      <h2 id="resultsTitle">Well played</h2>
+      <div class="results-stats">
+        <div class="result-item">
+          <span>Final score</span>
+          <p id="finalScore">0</p>
+        </div>
+        <div class="result-item">
+          <span>Accuracy</span>
+          <p id="finalAccuracy">0%</p>
+        </div>
+        <div class="result-item">
+          <span>Max combo</span>
+          <p id="maxCombo">0</p>
+        </div>
+        <div class="result-item">
+          <span>Notes played</span>
+          <p id="totalNotes">0</p>
+        </div>
+      </div>
+      <p class="result-message" id="resultMessage"></p>
+      <div class="button-group">
+        <button onclick="backToMenu()" class="btn-secondary">Main menu</button>
+        <button onclick="replaySong()" class="btn-primary">Play again</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="notes.js"></script>
+<script src="instruments.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
